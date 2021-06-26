@@ -1,10 +1,10 @@
 #include "get_next_line.h"
 
-int		ft_strjoin(const char **line, const char *static_line)
+int	ft_strjoin(const char **line, const char *static_line)
 {
 	char	*new_str;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	new_str = (char *)malloc(ft_strlen(*line) + ft_strlen(static_line) + 1);
@@ -28,11 +28,11 @@ int		ft_strjoin(const char **line, const char *static_line)
 	return (1);
 }
 
-int		ft_tail_cutting(char **str)
+int	ft_tail_cutting(char **str)
 {
-	char *tmp;
-	int i;
-	int j;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 1;
 	while (str[0][i - 1] != '\n')
@@ -53,16 +53,16 @@ int		ft_tail_cutting(char **str)
 	return (1);
 }
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static char *static_line;
-	int sumbol_read;
+	static char	*static_line;
+	int			sumbol_read;
 
-	sumbol_read = 1;
 	if (fd < 0 || line == 0 || fd > 100)
 		return (-1);
+	sumbol_read = 1;
 	*line = (char *)ft_calloc(sizeof(char), 1);
-	if (!static_line)
+	if (static_line == NULL)
 		static_line = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
 	while (static_line != NULL && *line != NULL && sumbol_read != 0)
 	{

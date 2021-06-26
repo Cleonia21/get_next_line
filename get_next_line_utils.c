@@ -1,8 +1,20 @@
 #include "get_next_line.h"
 
-int		ft_free(char **s, int i)
+char	*ft_strchr(char *s, int c)
 {
-	free (*s);
+	while (*s)
+	{
+		if (*s == c)
+			return (s);
+		s++;
+	}
+	return (NULL);
+}
+
+int	ft_free(char **s, int i)
+{
+	if (*s != NULL)
+		free (*s);
 	*s = NULL;
 	return (i);
 }
@@ -35,15 +47,4 @@ void	*ft_calloc(size_t count, size_t size)
 		i++;
 	}
 	return (object);
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == c)
-			return (s);
-		s++;
-	}
-	return (NULL);
 }
