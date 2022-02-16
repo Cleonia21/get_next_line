@@ -1,6 +1,6 @@
 #include "get_next_line_bonus.h"
 
-int	ft_tail_cutting(char **str)
+int	gnl_tail_cutting(char **str)
 {
 	char	*tmp;
 	int		i;
@@ -9,7 +9,7 @@ int	ft_tail_cutting(char **str)
 	i = 1;
 	while (str[0][i - 1] != '\n')
 		i++;
-	tmp = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+	tmp = (char *)gnl_calloc(BUFFER_SIZE + 1, 1);
 	if (tmp == NULL)
 		return (-1);
 	j = 0;
@@ -25,19 +25,19 @@ int	ft_tail_cutting(char **str)
 	return (1);
 }
 
-int	ft_get_line(int fd, char **line, char **static_line)
+int	gnl_get_line(int fd, char **line, char **static_line)
 {
 	int	sumbol_read;
 
 	sumbol_read = 1;
-	*line = (char *)ft_calloc(sizeof(char), 1);
+	*line = (char *)gnl_calloc(sizeof(char), 1);
 	if (*static_line == NULL)
-		*static_line = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+		*static_line = (char *)gnl_calloc(BUFFER_SIZE + 1, 1);
 	while (*static_line != NULL && *line != NULL && sumbol_read != 0)
 	{
-		if (ft_strjoin((const char **)line, *static_line) != -1)
-			if (ft_strchr(*static_line, '\n'))
-				return (ft_tail_cutting(static_line));
+		if (gnl_strjoin((const char **)line, *static_line) != -1)
+			if (gnl_strchr(*static_line, '\n'))
+				return (gnl_tail_cutting(static_line));
 		sumbol_read = read(fd, *static_line, BUFFER_SIZE);
 		if (sumbol_read < 0)
 			return (-1);
@@ -48,7 +48,7 @@ int	ft_get_line(int fd, char **line, char **static_line)
 	return (-1);
 }
 
-void	ft_free_list_util(t_list *list, int fd)
+void	gnl_free_list_util(t_list *list, int fd)
 {
 	t_list	*l_left;
 	t_list	*l_right;
@@ -73,7 +73,7 @@ void	ft_free_list_util(t_list *list, int fd)
 	}	
 }
 
-t_list	*ft_free_list(t_list *list, t_list *tmp)
+t_list	*gnl_free_list(t_list *list, t_list *tmp)
 {
 	if (tmp == list)
 	{
@@ -93,7 +93,7 @@ t_list	*ft_free_list(t_list *list, t_list *tmp)
 		}
 	}
 	else
-		ft_free_list_util(tmp, tmp->fd);
+		gnl_free_list_util(tmp, tmp->fd);
 	return (list);
 }
 
@@ -106,20 +106,20 @@ int	get_next_line(int fd, char **line)
 	if (fd < 0 || line == 0 || fd > 100)
 		return (-1);
 	if (list == NULL)
-		list = ft_new_list(fd);
+		list = gnl_new_list(fd);
 	if (list == NULL)
 		return (-1);
 	tmp = list;
 	while (tmp->fd != fd)
 	{
 		if (tmp->next == NULL)
-			tmp->next = ft_new_list(fd);
+			tmp->next = gnl_new_list(fd);
 		if (tmp->next == NULL)
 			return (-1);
 		tmp = tmp->next;
 	}
-	retval = ft_get_line(fd, line, &tmp->static_line);
+	retval = gnl_get_line(fd, line, &tmp->static_line);
 	if (retval <= 0)
-		list = ft_free_list(list, tmp);
+		list = gnl_free_list(list, tmp);
 	return (retval);
 }

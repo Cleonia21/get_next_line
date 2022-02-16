@@ -1,6 +1,6 @@
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *str)
+size_t	gnl_strlen(const char *str)
 {
 	size_t	i;
 
@@ -13,7 +13,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*gnl_calloc(size_t count, size_t size)
 {
 	size_t	i;
 	char	*object;
@@ -30,7 +30,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (object);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*gnl_strchr(char *s, int c)
 {
 	while (*s)
 	{
@@ -41,7 +41,7 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-t_list	*ft_new_list(int fd)
+t_list	*gnl_new_list(int fd)
 {
 	t_list	*list;
 
@@ -54,14 +54,14 @@ t_list	*ft_new_list(int fd)
 	return (list);
 }
 
-int	ft_strjoin(const char **line, const char *static_line)
+int	gnl_strjoin(const char **line, const char *static_line)
 {
 	char	*new_str;
 	int		i;
 	int		j;
 
 	i = 0;
-	new_str = (char *)malloc(ft_strlen(*line) + ft_strlen(static_line) + 1);
+	new_str = (char *)malloc(gnl_strlen(*line) + gnl_strlen(static_line) + 1);
 	if (new_str == NULL)
 		return (-1);
 	while (line[0][i] != '\0')

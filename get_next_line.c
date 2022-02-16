@@ -1,13 +1,13 @@
 #include "get_next_line.h"
 
-int	ft_strjoin(const char **line, const char *static_line)
+int	gnl_strjoin(const char **line, const char *static_line)
 {
 	char	*new_str;
 	int		i;
 	int		j;
 
 	i = 0;
-	new_str = (char *)malloc(ft_strlen(*line) + ft_strlen(static_line) + 1);
+	new_str = (char *)malloc(gnl_strlen(*line) + gnl_strlen(static_line) + 1);
 	if (new_str == NULL)
 		return (-1);
 	while (line[0][i] != '\0')
@@ -28,7 +28,7 @@ int	ft_strjoin(const char **line, const char *static_line)
 	return (1);
 }
 
-int	ft_tail_cutting(char **str)
+int	gnl_tail_cutting(char **str)
 {
 	char	*tmp;
 	int		i;
@@ -37,9 +37,9 @@ int	ft_tail_cutting(char **str)
 	i = 1;
 	while (str[0][i - 1] != '\n')
 		i++;
-	tmp = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+	tmp = (char *)gnl_calloc(BUFFER_SIZE + 1, 1);
 	if (tmp == NULL)
-		return (ft_free(str, -1));
+		return (gnl_free(str, -1));
 	j = 0;
 	while (str[0][i] != '\0')
 	{
@@ -61,20 +61,20 @@ int	get_next_line(int fd, char **line)
 	if (fd < 0 || line == 0 || fd > 100)
 		return (-1);
 	sumbol_read = 1;
-	*line = (char *)ft_calloc(sizeof(char), 1);
+	*line = (char *)gnl_calloc(sizeof(char), 1);
 	if (static_line == NULL)
-		static_line = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+		static_line = (char *)gnl_calloc(BUFFER_SIZE + 1, 1);
 	while (static_line != NULL && *line != NULL && sumbol_read != 0)
 	{
-		if (ft_strjoin((const char **)line, static_line) != -1)
-			if (ft_strchr(static_line, '\n'))
-				return (ft_tail_cutting(&static_line));
+		if (gnl_strjoin((const char **)line, static_line) != -1)
+			if (gnl_strchr(static_line, '\n'))
+				return (gnl_tail_cutting(&static_line));
 		sumbol_read = read(fd, static_line, BUFFER_SIZE);
 		if (sumbol_read < 0)
-			return (ft_free(&static_line, -1));
+			return (gnl_free(&static_line, -1));
 		static_line[sumbol_read] = '\0';
 	}
 	if (sumbol_read == 0)
-		return (ft_free(&static_line, 0));
+		return (gnl_free(&static_line, 0));
 	return (-1);
 }

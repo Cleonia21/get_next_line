@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char	*ft_strchr(char *s, int c)
+char	*gnl_strchr(char *s, int c)
 {
 	while (*s)
 	{
@@ -11,7 +11,7 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-int	ft_free(char **s, int i)
+int	gnl_free(char **s, int i)
 {
 	if (*s != NULL)
 		free (*s);
@@ -19,7 +19,7 @@ int	ft_free(char **s, int i)
 	return (i);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	gnl_strlen(const char *str)
 {
 	size_t	i;
 
@@ -32,7 +32,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*gnl_calloc(size_t count, size_t size)
 {
 	size_t	i;
 	char	*object;
